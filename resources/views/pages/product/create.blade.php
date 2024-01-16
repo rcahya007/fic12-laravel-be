@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Create category')
+@section('title', 'Product category')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -17,21 +17,21 @@
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
                     <div class="breadcrumb-item"><a href="#">Forms</a></div>
-                    <div class="breadcrumb-item">Category</div>
+                    <div class="breadcrumb-item">Product</div>
                 </div>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Category</h2>
+                <h2 class="section-title">Product</h2>
                 <div class="card">
-                    <form action="{{ route('category.store') }}" method="POST">
+                    <form action="{{ route('product.store') }}" method="POST">
                         @csrf
                         <div class="card-header">
-                            <h4>Input Category</h4>
+                            <h4>Input Product</h4>
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label>Name category</label>
+                                <label>Name Product</label>
                                 <input type="text"
                                     class="form-control @error('name')
                                 is-invalid
@@ -44,6 +44,17 @@
                                 @enderror
                             </div>
 
+                            <div class="form-group">
+                                <label>jQuery Selectric</label>
+                                <select class="form-control selectric">
+                                    <option>Option 1</option>
+                                    <option>Option 2</option>
+                                    <option>Option 3</option>
+                                    <option>Option 4</option>
+                                    <option>Option 5</option>
+                                    <option>Option 6</option>
+                                </select>
+                            </div>
                             <div class="form-group ">
                                 <label>Description</label>
                                 <div class="">

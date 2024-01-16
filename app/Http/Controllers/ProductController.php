@@ -3,17 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $products = Category::$products = DB::table('products')
-            ->where('products.name', 'like', "%$request->search%")
-            ->paginate(5);
-        // dd($products);
+        $products = Product::where('name', 'like', "%$request->search%")->paginate(5);
         return view('pages.product.index', compact('products'));
+    }
+
+    public function create()
+    {
+        $dataCategory = Category::all();
+        return view('pages.product.create', compact('dataCategory'));
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->all();
     }
 }
