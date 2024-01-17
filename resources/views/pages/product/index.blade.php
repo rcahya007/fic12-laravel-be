@@ -56,7 +56,7 @@
                                             <th>Category</th>
                                             <th>Price</th>
                                             <th>Stock</th>
-                                            <th>Created At</th>
+                                            <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                         @foreach ($products as $product)
@@ -65,16 +65,20 @@
                                                 <td>{{ $product->category->name }}</td>
                                                 <td>{{ $product->price }}</td>
                                                 <td>{{ $product->stock }}</td>
-                                                <td>{{ $product->created_at }}</td>
+                                                @if ($product->is_available == 1)
+                                                    <td>Aktif</td>
+                                                @else
+                                                    <td>Tidak Aktif</td>
+                                                @endif
                                                 <td>
                                                     <div class="d-flex justify-content-start">
-                                                        <a href='{{ route('category.edit', $product->id) }}'
+                                                        <a href='{{ route('product.edit', $product->id) }}'
                                                             class="btn btn-sm btn-info btn-icon">
                                                             <i class="fas fa-edit"></i>
                                                             Edit
                                                         </a>
 
-                                                        <form action="{{ route('category.destroy', $product->id) }}"
+                                                        <form action="{{ route('product.destroy', $product->id) }}"
                                                             method="POST" class="ml-2">
                                                             <input type="hidden" name="_method" value="DELETE" />
                                                             <input type="hidden" name="_token"

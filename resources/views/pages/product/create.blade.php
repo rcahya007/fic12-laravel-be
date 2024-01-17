@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Product category')
+@section('title', 'Product')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -24,7 +24,7 @@
             <div class="section-body">
                 <h2 class="section-title">Product</h2>
                 <div class="card">
-                    <form action="{{ route('product.store') }}" method="POST">
+                    <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="card-header">
                             <h4>Input Product</h4>
@@ -45,15 +45,36 @@
                             </div>
 
                             <div class="form-group">
-                                <label>jQuery Selectric</label>
-                                <select class="form-control selectric">
-                                    <option>Option 1</option>
-                                    <option>Option 2</option>
-                                    <option>Option 3</option>
-                                    <option>Option 4</option>
-                                    <option>Option 5</option>
-                                    <option>Option 6</option>
+                                <label>Category</label>
+                                <select
+                                    class="form-control selectric @error('category_id')
+                                is-invalid
+                            @enderror"
+                                    name="category_id">
+                                    @foreach ($dataCategory as $data)
+                                        <option value="{{ $data->id }}">{{ $data->name }}</option>
+                                    @endforeach
                                 </select>
+                                @error('category_id')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label>Image product</label>
+                                <div id="image-preview" class="image-preview">
+                                    <label for="image-upload" id="image-label">Choose File</label>
+                                    <input type="file" name="image" id="image-upload"
+                                        class="@error('image')
+                                        is-invalid
+                                    @enderror" />
+                                    @error('image')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                             </div>
                             <div class="form-group ">
                                 <label>Description</label>
@@ -71,21 +92,56 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>Image category</label>
-                                <div class="">
-                                    <div id="image-preview" class="image-preview">
-                                        <label for="image-upload" id="image-label">Choose File</label>
-                                        <input type="file" name="image" id="image-upload"
-                                            class="@error('image')
-                                        is-invalid
-                                    @enderror" />
-                                        @error('image')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
+                                <label>Price</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            Rp
+                                        </div>
                                     </div>
+                                    <input type="number"
+                                        class="form-control currency @error('price')
+                                    is-invalid
+                                @enderror"
+                                        name="price">
+                                    @error('price')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Stock</label>
+                                <div class="input-group">
+                                    <input type="number"
+                                        class="form-control @error('stock')
+                                    is-invalid
+                                @enderror"
+                                        name="stock">
+                                    @error('stock')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="control-label">Status Produk</div>
+                                <label class="mt-2">
+                                    <input type="checkbox" name="is_available"
+                                        class="custom-switch-input @error('is_available')
+                                    is-invalid
+                                @enderror">
+                                    @error('is_available')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                    <span class="custom-switch-indicator"></span>
+                                    <span class="custom-switch-description">Jika status aktif, produkmu dapat dicari oleh
+                                        calon pembeli.</span>
+                                </label>
                             </div>
                         </div>
                         <div class="card-footer text-right">
