@@ -63,7 +63,12 @@
                             <div class="form-group">
                                 <label>Image category</label>
                                 <div class="">
-                                    <div id="image-preview" class="image-preview">
+                                    <div id="image-preview" class="image-preview"
+                                        @if ($category->image != null) style="
+                                    background-image: url('{{ asset('storage/category/' . $category->image) }}');
+                                    background-size: cover;
+                                    background-position: center center;
+                                    " @endif>
                                         <label for="image-upload" id="image-label">Choose File</label>
                                         <input type="file" name="image" id="image-upload"
                                             value="{{ $category->image }}"

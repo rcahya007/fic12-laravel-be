@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductRequest;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -23,21 +24,25 @@ class ProductController extends Controller
         return view('pages.product.create', compact('dataCategory'));
     }
 
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        $data = $request->all();
-        $filename = time() . '.' . $request->image->extension();
-        $request->image->storeAs('public/products', $filename);
-        $data['image'] = $filename;
-        if ($request->input('is_available') == "on") {
-            $data['is_available'] = true;
-        } else {
-            $data['is_available'] = false;
+        try {
+            $data = $request->all();
+            if ($request->image != null) {
+                $filename = time() . '.' . $request->image->extension();
+                $request->image->storeAs('public/products', $filename);
+                $data['image'] = $filename;
+            }
+            if ($request->input('is_available') == "on") {
+                $data['is_available'] = true;
+            } else {
+                $data['is_available'] = false;
+            }
+            Product::create($data);
+            return redirect()->route('product.index')->with('success', 'Product created successfully');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Something goes wrong while uploading file!');
         }
-        // dd($request->input('is_available'));
-        // dd($data);
-        Product::create($data);
-        return redirect()->route('product.index');
     }
 
     public function show($id)
@@ -58,12 +63,9 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
-        // dd($request->all());
-        // dd($request->image);
         $product = Product::findOrFail($id);
         $product->category_id = $request->input('category_id');
         $product->name = $request->input('name');
-        $product->description = $request->input('description');
         $product->description = $request->input('description');
         if ($request->image == null) {
             $product->fill($request->except('image'));
@@ -81,7 +83,7 @@ class ProductController extends Controller
             $product->is_available = false;
         }
         $product->save();
-        return redirect()->route('product.index');
+        return redirect()->route('product.index')->with('success', 'Product updated successfully');
     }
 
     public function destroy($id)

@@ -66,11 +66,11 @@
                             <div class="form-group">
                                 <label>Image product</label>
                                 <div id="image-preview" class="image-preview"
-                                    @if ($product->image != null) style="
-                                    background-image: url('{{ asset('storage/products/' . $product->image) }}');
-                                    background-size: cover;
-                                    background-position: center center;
-                                    " @endif>
+                                @if ($product->image != null) style="
+                                background-image: url('{{ asset('storage/products/' . $product->image) }}');
+                                background-size: cover;
+                                background-position: center center;
+                                " @endif>
                                     <label for="image-upload" id="image-label">Choose File</label>
                                     <input type="file" name="image" id="image-upload"
                                         class="@error('image')

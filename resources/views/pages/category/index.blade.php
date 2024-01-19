@@ -26,6 +26,11 @@
                 <p class="section-lead">
                     You can manage all Categories, such as editing, deleting and more.
                 </p>
+                <div class="row">
+                    <div class="col-12">
+                        @include('layouts.alert')
+                    </div>
+                </div>
                 <div class="row mt-4">
                     <div class="col-12">
                         <div class="card">
@@ -38,7 +43,7 @@
                                     <form method="GET" action="{{ route('category.index') }}">
                                         <div class="input-group">
                                             <input type="text" class="form-control" placeholder="Search" name="search"
-                                                value="{{ request()->query('search')}}">
+                                                value="{{ request()->query('search') }}">
                                             <div class="input-group-append">
                                                 <button class="btn btn-primary"><i class="fas fa-search"></i></button>
                                             </div>

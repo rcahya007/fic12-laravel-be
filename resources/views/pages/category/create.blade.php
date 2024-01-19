@@ -24,7 +24,7 @@
             <div class="section-body">
                 <h2 class="section-title">Category</h2>
                 <div class="card">
-                    <form action="{{ route('category.store') }}" method="POST">
+                    <form action="{{ route('category.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="card-header">
                             <h4>Input Category</h4>
@@ -46,36 +46,32 @@
 
                             <div class="form-group ">
                                 <label>Description</label>
-                                <div class="">
-                                    <textarea
-                                        class="summernote-simple @error('description')
+                                <textarea
+                                    class="summernote-simple @error('description')
                                     is-invalid
                                 @enderror"
-                                        name="description"></textarea>
-                                    @error('description')
+                                    name="description"></textarea>
+                                @error('description')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label>Image category</label>
+                                <div id="image-preview" class="image-preview">
+                                    <label for="image-upload" id="image-label">Choose File</label>
+                                    <input type="file" name="image" id="image-upload" accept="image/*"
+                                        class="@error('image') is-invalid @enderror" />
+                                    @error('image')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
                                     @enderror
                                 </div>
+                                <span style="font-size: 12px">File image must be less than 3Mb</span>
                             </div>
-                            <div class="form-group">
-                                <label>Image category</label>
-                                <div class="">
-                                    <div id="image-preview" class="image-preview">
-                                        <label for="image-upload" id="image-label">Choose File</label>
-                                        <input type="file" name="image" id="image-upload"
-                                            class="@error('image')
-                                        is-invalid
-                                    @enderror" />
-                                        @error('image')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                         <div class="card-footer text-right">
                             <button class="btn btn-primary">Submit</button>
