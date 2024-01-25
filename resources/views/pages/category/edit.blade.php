@@ -24,7 +24,7 @@
             <div class="section-body">
                 <h2 class="section-title">Category</h2>
                 <div class="card">
-                    <form action="{{ route('category.update', $category) }}" method="POST">
+                    <form action="{{ route('category.update', $category) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="card-header">
@@ -44,7 +44,17 @@
                                     </div>
                                 @enderror
                             </div>
-
+                            <div class="form-group">
+                                <label>Room</label>
+                                <select class="form-control selectric @error('room_id') is-invalid @enderror"
+                                    name="room_id">
+                                    @foreach ($rooms as $room)
+                                        <option value="{{ $room->id }}"
+                                            @if ($room->id == $category->room_id) selected @endif>{{ $room->name }}</option>
+                                    @endforeach
+                                </select>
+                                <span style="font-size: 12px">Must be select one room </span>
+                            </div>
                             <div class="form-group ">
                                 <label>Description</label>
                                 <div class="">

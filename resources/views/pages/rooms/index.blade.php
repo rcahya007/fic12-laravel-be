@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Product')
+@section('title', 'Rooms')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -11,20 +11,20 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Products</h1>
+                <h1>Rooms</h1>
                 <div class="section-header-button">
-                    <a href="{{ route('product.create') }}" class="btn btn-primary">Add New</a>
+                    <a href="{{ route('room.create') }}" class="btn btn-primary">Add New</a>
                 </div>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Product</a></div>
-                    <div class="breadcrumb-item">All Product</div>
+                    <div class="breadcrumb-item"><a href="#">Rooms</a></div>
+                    <div class="breadcrumb-item">All room</div>
                 </div>
             </div>
             <div class="section-body">
-                <h2 class="section-title">Product</h2>
+                <h2 class="section-title">Room</h2>
                 <p class="section-lead">
-                    You can manage all Product, such as editing, deleting and more.
+                    You can manage all Room, such as editing, deleting and more.
                 </p>
                 <div class="row">
                     <div class="col-12">
@@ -35,12 +35,12 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>All Product</h4>
+                                <h4>All Room</h4>
                             </div>
                             <div class="card-body">
 
                                 <div class="float-right">
-                                    <form method="GET" action="{{ route('product.index') }}">
+                                    <form method="GET" action="{{ route('room.index') }}">
                                         <div class="input-group">
                                             <input type="text" class="form-control" placeholder="Search" name="search"
                                                 value="{{ request()->query('search') }}">
@@ -50,50 +50,35 @@
                                         </div>
                                     </form>
                                 </div>
-
-                                <div class="clearfix mb-3"></div>
-
                                 <div class="table-responsive">
                                     <table class="table-striped table">
                                         <tr>
-
                                             <th>Name</th>
-                                            <th>Category</th>
-                                            <th>Price</th>
-                                            <th>Stock</th>
-                                            <th>Status</th>
-                                            <th>image</th>
+                                            <th>Description</th>
+                                            <th>Image</th>
                                             <th>Action</th>
                                         </tr>
-                                        @foreach ($products as $product)
+                                        @foreach ($rooms as $room)
                                             <tr>
-                                                <td>{{ $product->name }}</td>
-                                                <td>{{ $product->category->name }}</td>
-                                                <td>Rp. {{ number_format($product->price, 0, ',', '.') }}</td>
-                                                <td>{{ $product->stock }}</td>
-                                                @if ($product->is_available == 1)
-                                                    <td>Aktif</td>
-                                                @else
-                                                    <td>Tidak Aktif</td>
-                                                @endif
+                                                <td>{{ $room->name }}</td>
+                                                <td>{{ strip_tags($room->description) }}</td>
                                                 <td>
-                                                    @if ($product->image == null)
+                                                    @if ($room->image == null)
                                                         No Image
                                                     @else
-                                                        <img src="{{ asset('storage/products/' . $product->image) }}"
+                                                        <img src="{{ asset('storage/rooms/' . $room->image) }}"
                                                             width="200" height="200">
                                                     @endif
                                                 </td>
                                                 <td>
                                                     <div class="d-flex justify-content-start">
-                                                        <a href='{{ route('product.edit', $product->id) }}'
+                                                        <a href='{{ route('room.edit', $room->id) }}'
                                                             class="btn btn-sm btn-info btn-icon">
                                                             <i class="fas fa-edit"></i>
                                                             Edit
                                                         </a>
-
-                                                        <form action="{{ route('product.destroy', $product->id) }}"
-                                                            method="POST" class="ml-2">
+                                                        <form action="{{ route('room.destroy', $room->id) }}" method="POST"
+                                                            class="ml-2">
                                                             <input type="hidden" name="_method" value="DELETE" />
                                                             <input type="hidden" name="_token"
                                                                 value="{{ csrf_token() }}" />
@@ -105,12 +90,10 @@
                                                 </td>
                                             </tr>
                                         @endforeach
-
-
                                     </table>
                                 </div>
                                 <div class="float-right">
-                                    {{ $products->withQueryString()->links() }}
+                                    {{ $rooms->withQueryString()->links() }}
                                 </div>
                             </div>
                         </div>

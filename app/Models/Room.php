@@ -5,19 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Room extends Model
 {
     use HasFactory;
 
-    protected $fillable =  [
-        'room_id',
+    protected $fillable = [
         'name',
         'description',
-        'image'
+        'image',
     ];
-
-    public function room()
-    {
-        return $this->belongsTo(Room::class, 'room_id');
-    }
 }

@@ -29,6 +29,14 @@
                 </ul>
             </li>
             <li class="nav-item dropdown">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Rooms</span></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a class="nav-link" href="{{ route('room.index') }}">All Room</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Category</span></a>
                 <ul class="dropdown-menu">
                     <li>

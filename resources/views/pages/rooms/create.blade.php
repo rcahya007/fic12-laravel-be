@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Create category')
+@section('title', 'Create Room')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -17,21 +17,21 @@
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
                     <div class="breadcrumb-item"><a href="#">Forms</a></div>
-                    <div class="breadcrumb-item">Category</div>
+                    <div class="breadcrumb-item">Room</div>
                 </div>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Category</h2>
+                <h2 class="section-title">Room</h2>
                 <div class="card">
-                    <form action="{{ route('category.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('room.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="card-header">
-                            <h4>Input Category</h4>
+                            <h4>Input Room</h4>
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label>Name category</label>
+                                <label>Name room</label>
                                 <input type="text"
                                     class="form-control @error('name')
                                 is-invalid
@@ -43,27 +43,13 @@
                                     </div>
                                 @enderror
                             </div>
-                            <div class="form-group">
-                                <label>Room</label>
-                                <select class="form-control selectric @error('room_id') is-invalid @enderror"
-                                    name="room_id">
-                                    <option value="">-- Pilih Room --</option>
-                                    @foreach ($rooms as $room)
-                                        <option value="{{ $room->id }}">{{ $room->name }}</option>
-                                    @endforeach
-                                </select>
-                                {{-- @error('room_id')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror --}}
-                                <span style="font-size: 12px">Must be select one room </span>
-                            </div>
                             <div class="form-group ">
                                 <label>Description</label>
-                                <textarea class="summernote-simple @error('description')
-                                    is-invalid @enderror"
-                                    name="description"></textarea>
+                                <textarea
+                                    class="summernote-simple @error('description')
+                                    is-invalid
+                                @enderror"
+                                    name="description">{{ old('description') }}"</textarea>
                                 @error('description')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -71,7 +57,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label>Image category</label>
+                                <label>Image room</label>
                                 <div id="image-preview" class="image-preview">
                                     <label for="image-upload" id="image-label">Choose File</label>
                                     <input type="file" name="image" id="image-upload" accept="image/*"
@@ -84,7 +70,6 @@
                                 </div>
                                 <span style="font-size: 12px">File image must be less than 3Mb</span>
                             </div>
-
                         </div>
                         <div class="card-footer text-right">
                             <button class="btn btn-primary">Submit</button>

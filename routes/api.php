@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\RoomController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,3 +32,6 @@ Route::get('/categories', [CategoryController::class, 'index']);
 
 // Products
 Route::get('/products', [ProductController::class, 'index']);
+
+// Rooms
+Route::post('/rooms', [RoomController::class, 'store']);

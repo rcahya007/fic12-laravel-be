@@ -43,7 +43,6 @@
                                     </div>
                                 @enderror
                             </div>
-
                             <div class="form-group">
                                 <label>Category</label>
                                 <select

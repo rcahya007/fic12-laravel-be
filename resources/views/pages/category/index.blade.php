@@ -38,7 +38,6 @@
                                 <h4>All Category</h4>
                             </div>
                             <div class="card-body">
-
                                 <div class="float-right">
                                     <form method="GET" action="{{ route('category.index') }}">
                                         <div class="input-group">
@@ -50,23 +49,30 @@
                                         </div>
                                     </form>
                                 </div>
-
                                 <div class="clearfix mb-3"></div>
-
                                 <div class="table-responsive">
                                     <table class="table-striped table">
                                         <tr>
-
                                             <th>Name</th>
-
-                                            <th>Created At</th>
+                                            <th>Room</th>
+                                            <th>Description</th>
+                                            <th>Image</th>
                                             <th>Action</th>
                                         </tr>
                                         @foreach ($categories as $category)
                                             <tr>
-                                                <td>{{ $category->name }}
+                                                <td>{{ $category->name }}</td>
+                                                <td>{{ $category->room->name }}</td>
+                                                <td>{{ str_replace('&nbsp;', '', strip_tags($category->description)) }}
                                                 </td>
-                                                <td>{{ $category->created_at }}</td>
+                                                <td>
+                                                    @if ($category->image == null)
+                                                        No Image
+                                                    @else
+                                                        <img src="{{ asset('storage/category/' . $category->image) }}"
+                                                            width="200" height="200">
+                                                    @endif
+                                                </td>
                                                 <td>
                                                     <div class="d-flex justify-content-start">
                                                         <a href='{{ route('category.edit', $category->id) }}'
