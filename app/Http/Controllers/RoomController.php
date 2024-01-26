@@ -13,7 +13,7 @@ class RoomController extends Controller
         $rooms = Room::where('name', 'like', "%$request->search%")
             ->orderBy('id', 'desc')
             ->paginate(5);
-        return view('pages.room.index', compact('rooms'));
+        return view('pages.rooms.index', compact('rooms'));
     }
 
     public function create()

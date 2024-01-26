@@ -11,7 +11,11 @@ class RoomController extends Controller
 {
     public function index()
     {
-        return view('pages.room.index');
+        $rooms = Room::all();
+        return response()->json([
+            'message' => 'Success',
+            'data' => $rooms,
+        ]);
     }
 
     public function create()
