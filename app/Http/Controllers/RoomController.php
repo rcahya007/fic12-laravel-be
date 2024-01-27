@@ -18,7 +18,7 @@ class RoomController extends Controller
 
     public function create()
     {
-        return view('pages.room.create');
+        return view('pages.rooms.create');
     }
 
     public function store(Request $request)
@@ -49,7 +49,7 @@ class RoomController extends Controller
     public function edit($id)
     {
         $room = Room::findOrFail($id);
-        return view('pages.room.edit', compact('room'));
+        return view('pages.rooms.edit', compact('room'));
     }
 
     public function update(Request $request, $id)
