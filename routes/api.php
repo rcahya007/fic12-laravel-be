@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AddressController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ProductController;
@@ -36,3 +37,6 @@ Route::get('/products', [ProductController::class, 'index']);
 // Rooms
 Route::get('/rooms', [RoomController::class, 'index']);
 Route::post('/rooms', [RoomController::class, 'store']);
+
+// Address Resource
+Route::apiResource('/addresses', AddressController::class)->middleware('auth:sanctum');
