@@ -39,4 +39,8 @@ Route::get('/rooms', [RoomController::class, 'index']);
 Route::post('/rooms', [RoomController::class, 'store']);
 
 // Address Resource
-Route::apiResource('/addresses', AddressController::class)->middleware('auth:sanctum');
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('/addresses', AddressController::class);
+    Route::put('/addressUpdate/{id}', [AddressController::class, 'updateDefaultAddress']);
+});

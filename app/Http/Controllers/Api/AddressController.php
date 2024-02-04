@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Address;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -70,7 +71,6 @@ class AddressController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
     }
 
     /**
@@ -79,5 +79,24 @@ class AddressController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function updateDefaultAddress(Request $request, $id)
+    {
+        $addressDefault = Address::where('user_id', $id)
+            ->where('is_default', true)
+            ->update([
+                'is_default' => false,
+            ]);
+
+        $address = Address::findOrFail($request->id);
+        $address->is_default = true;
+        $address->save();
+
+        return response()->json([
+            'message' => 'success',
+            'addressDefault' => $addressDefault,
+            'newAddressDefault' => $address,
+        ]);
     }
 }
